@@ -1,0 +1,37 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.3
+      
+  phplint:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v1
+        - name: "laravel-pint"
+          uses: aglipanci/laravel-pint-action@2.0.0
+          with:
+            preset: laravel
+            verboseMode: true
+            testMode: true
+            configPath: "vendor/my-company/coding-style/pint.json"
+            pintVersion: 1.8.0
+            onlyDirty: true
+          
