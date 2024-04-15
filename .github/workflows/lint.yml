@@ -36,5 +36,6 @@ jobs:
         uses: php-actions/phpcs@v1
         with:
           php_version: 7.4
-          path: ./
+          path: .  # Maintenant, tu es déjà dans le répertoire src/, donc le point indique le répertoire actuel
           standard: phpcs.xml
+
