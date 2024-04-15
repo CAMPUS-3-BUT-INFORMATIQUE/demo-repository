@@ -5,8 +5,8 @@ function exampleFunction() {
   console.log("It violates Prettier recommendations.");
 }
 
+function exampleFunction2() {
+  console.log("This function has improper spacing and indentation.");
 
-function exampleFunction2() {console.log("This function has improper spacing and indentation.");
-  
-                   console.log("It violates Prettier recommendations.");
+  console.log("It violates Prettier recommendations.");
 }
