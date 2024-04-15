@@ -8,6 +8,7 @@ on:
     branches:
       - main
 
+
 jobs:
   prettier:
     runs-on: ubuntu-latest
@@ -18,24 +19,35 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Prettify code
-        uses: creyD/prettier_action@v4.3
-      
-  php_sniffer:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Change directory to src/
-        run: cd src/
-
-      - name: Composer install
-        uses: php-actions/composer@v6
-
-      - name: PHP Code Sniffer
-        uses: php-actions/phpcs@v1
+      - name: Setup Node.js and Yarn
+        uses: actions/setup-node@v2
         with:
-          php_version: 7.4
-          path: .  # Maintenant, tu es déjà dans le répertoire src/, donc le point indique le répertoire actuel
-          standard: phpcs.xml
+          node-version: '14'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'yarn'
+
+      - name: Install Prettier and prettier-plugin-php
+        run: yarn add prettier prettier-plugin-php
+
+      - name: Prettify code
+        run: yarn prettier --write "**/*.{js,php}"
+
+      
+  # php_sniffer:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     - name: Change directory to src/
+  #       run: cd src/
+
+  #     - name: Composer install
+  #       uses: php-actions/composer@v6
+
+  #     - name: PHP Code Sniffer
+  #       uses: php-actions/phpcs@v1
+  #       with:
+  #         php_version: 7.4
+  #         path: .  # Maintenant, tu es déjà dans le répertoire src/, donc le point indique le répertoire actuel
+  #         standard: phpcs.xml
 
