@@ -1,0 +1,45 @@
+version: "3"
+services:
+    agile8.app:
+        container_name: agile8.app
+        build:
+            context: ../docker
+            dockerfile: ../docker/Dockerfile
+        image: agile8.app
+        restart: unless-stopped
+        depends_on:
+            - agile8.mariadb
+        ports:
+            - "${APP_PORT:-80}:80"
+        volumes:
+            - "../src:/var/www/private/git-dev/src"
+            - "../src/public:/var/www/www-dev"
+            - "../docker/apache_default.conf:/etc/apache2/sites-enabled/000-default.conf"
+
+    agile8.mariadb:
+        container_name: agile8.mariadb
+        image: mariadb:10.5.21-focal
+        restart: unless-stopped
+        ports:
+            - "${DB_PORT:-3306}:3306"
+        volumes:
+            - "../mysql:/var/lib/mysql"
+        environment:
+            - MARIADB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+            - MARIADB_USER=${DB_USERNAME}
+            - MARIADB_PASSWORD=${DB_PASSWORD}
+            - MARIADB_DATABASE=${DB_DATABASE:-agile8_bd}
+
+    agile8.phpmyadmin:
+        container_name: agile8.phpmyadmin
+        image: phpmyadmin:5.0.4-apache
+        restart: unless-stopped
+        depends_on:
+            - agile8.mariadb
+        ports:
+            - "${PMA_APP_PORT:-8080}:80"
+        environment:
+            - PMA_HOST=${DB_HOST:-agile8.mariadb}
+            - PMA_PORT=${DB_PORT:-3306}
+            - PMA_USER=${DB_USERNAME}
+            - PMA_PASSWORD=${DB_PASSWORD}
