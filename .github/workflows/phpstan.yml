@@ -24,6 +24,8 @@ jobs:
 
     - name: Install Composer Dependencies
       run: composer install --no-progress --no-suggest --prefer-dist
+      working-directory: src  # Spécifiez le répertoire où se trouve composer.json
 
     - name: Run PHPStan
       run: php vendor/bin/phpstan analyse --level=max
+      working-directory: src  # Spécifiez le répertoire où se trouve composer.json
