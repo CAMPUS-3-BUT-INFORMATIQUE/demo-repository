@@ -19,12 +19,18 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Setup Node.js and Yarn
+      - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'yarn'
+
+      - name: Set working directory
+        uses: actions/exec@v2
+        with:
+          command: 'cd src/'
+
+      - name: Install Yarn dependencies
+        run: yarn install
 
       - name: Install Prettier and prettier-plugin-php
         run: yarn add prettier prettier-plugin-php
