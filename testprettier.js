@@ -10,3 +10,4 @@ function exampleFunction2() {console.log("This function has improper spacing and
   
                    console.log("It violates Prettier recommendations.");
 }
+;
