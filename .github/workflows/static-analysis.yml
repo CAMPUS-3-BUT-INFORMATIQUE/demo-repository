@@ -40,19 +40,11 @@ jobs:
         with:
           node-version: '20.12.2'
       - name: Install dependencies
-        run: |
-          cd src
-          yarn install
-     #- name: Install ESLint and plugins
-      #  run: yarn add eslint eslint-plugin-import eslint-plugin-promise --dev
-      - name: List installed packages
-        run: |
-          cd src
-          yarn list
+        run: yarn install
+        working-directory: src
       - name: ESLint
-        run: |
-          cd src
-          yarn run eslint
+        run: yarn run eslint
+        working-directory: src
 
 
 
