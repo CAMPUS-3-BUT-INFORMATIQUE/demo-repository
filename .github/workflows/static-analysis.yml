@@ -31,30 +31,20 @@ jobs:
       working-directory: src  # Spécifiez le répertoire où se trouve composer.json
 
   eslint:
-    name: runner / eslint
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: reviewdog/action-eslint@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
-          eslint_flags: "src/"
-
-      - name: Set up Node.js
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20.9' # Specify the Node.js version you want to use
-          
-      - name: Install ESLint
-        run: npm install eslint --save-dev
-      - uses: reviewdog/action-eslint@v1
-        with:
-          github_token: ${{ secrets.ES_LINT }}
-          reporter: github-pr-review
-          eslint_flags: "src/"
+          node-version: '20.12.2'
+      - name: Install dependencies
+        run: yarn install
+        working-directory: src
+      - name: ESLint
+        run: yarn run eslint
+        working-directory: src
+
+
 
