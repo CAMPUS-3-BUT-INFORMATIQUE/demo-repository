@@ -41,8 +41,10 @@ jobs:
           node-version: '20.12.2'
       - name: Install dependencies
         run: yarn install
+      - name: List installed packages
+        run: yarn list
       - name: ESLint
-        run: yarn run eslint *
+        run: yarn run eslint
 
 
 
