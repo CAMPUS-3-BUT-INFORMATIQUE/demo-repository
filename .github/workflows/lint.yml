@@ -28,3 +28,6 @@ jobs:
 
       - name: PHP Code Sniffer
         uses: php-actions/phpcs@v1
+        with:
+          standard: PSR2
+          args: src/
