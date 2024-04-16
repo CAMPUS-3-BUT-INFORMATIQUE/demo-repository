@@ -43,8 +43,8 @@ jobs:
           php-version: '7.4'
 
       - name: Install dependencies
-        run: composer require squizlabs/php_codesniffer --dev
+        run: composer install && composer require squizlabs/php_codesniffer --dev
         working-directory: ./src
 
       - name: PHP Code Beautifier and Fixer
-        run: ./vendor/bin/phpcbf --standard=PSR2 src/
+        run: ./src/vendor/bin/phpcbf --standard=PSR2 src/
