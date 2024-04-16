@@ -47,4 +47,4 @@ jobs:
         working-directory: ./src
 
       - name: PHP Code Beautifier and Fixer
-        run: ./vendor/bin/phpcbf --standard=PSR2 src/
+        run: ./src/vendor/bin/phpcbf --standard=PSR2 ./*.php
