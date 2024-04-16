@@ -43,12 +43,16 @@ jobs:
         run: |
           cd src
           yarn install
-      - name: Install ESLint and plugins
-        run: yarn add eslint eslint-plugin-import eslint-plugin-promise --dev
+     #- name: Install ESLint and plugins
+      #  run: yarn add eslint eslint-plugin-import eslint-plugin-promise --dev
       - name: List installed packages
-        run: yarn list
+        run: |
+          cd src
+          yarn list
       - name: ESLint
-        run: yarn run eslint
+        run: |
+          cd src
+          yarn run eslint
 
 
 
