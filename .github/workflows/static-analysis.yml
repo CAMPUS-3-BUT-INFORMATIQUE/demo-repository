@@ -31,11 +31,13 @@ jobs:
       working-directory: src  # Spécifiez le répertoire où se trouve composer.json
 
   eslint:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install modules
-      run: yarn
-    - name: Run ESLint
-      run: eslint . --ext .js,.jsx,.ts,.tsx
+   runs-on: ubuntu-latest
+   steps:
+   - uses: actions/checkout@v2
+   - name: Install modules
+     run: yarn
+   - name: Run ESLint
+     run: yarn run eslint . --ext .js,.jsx,.ts,.tsx
+
+
 
