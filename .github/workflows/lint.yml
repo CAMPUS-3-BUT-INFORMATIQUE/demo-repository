@@ -21,17 +21,30 @@ jobs:
       - name: Prettify code
         uses: creyD/prettier_action@v4.3
       
-  phplint:
+  # php_sniffer:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     # - name: PHP Code Sniffer
+  #     #   uses: php-actions/phpcs@v1
+  #     #   with:
+  #     #     standard: PSR2
+  #     #     args: src/
+
+  php_sniffer:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v1
-        - name: "laravel-pint"
-          uses: aglipanci/laravel-pint-action@2.0.0
-          with:
-            preset: laravel
-            verboseMode: true
-            testMode: true
-            configPath: "vendor/my-company/coding-style/pint.json"
-            pintVersion: 1.8.0
-            onlyDirty: true
-          
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Install dependencies
+        run: composer install && composer require squizlabs/php_codesniffer --dev
+        working-directory: ./src
+
+      - name: PHP Code Beautifier and Fixer
+        run: ./src/vendor/bin/phpcbf --standard=PSR2 ./*.php || true
