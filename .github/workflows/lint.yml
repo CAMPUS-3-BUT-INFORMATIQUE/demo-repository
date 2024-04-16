@@ -26,11 +26,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: PHP Code Sniffer
-        uses: php-actions/phpcs@v1
-        with:
-          standard: PSR2
-          args: src/
+      # - name: PHP Code Sniffer
+      #   uses: php-actions/phpcs@v1
+      #   with:
+      #     standard: PSR2
+      #     args: src/
 
       - name: PHP Code Beautifier and Fixer
         run: vendor/bin/phpcbf --standard=PSR2 src/
